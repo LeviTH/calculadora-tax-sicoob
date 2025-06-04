@@ -64,11 +64,12 @@ if st.button("🧮 Calcular valor a cobrar"):
 
             valor_parcela = valor_bruto / parcelas
             if parcelas > 1:
-                texto_parcelas = f"O cliente pagará {parcelas} parcelas de R$ {valor_parcela:,.2f} (total R$ {valor_bruto:,.2f})"
-                texto_parcelas = texto_parcelas.replace(",", "X").replace(".", ",").replace("X", ".")
-                texto_parcelas = texto_parcelas.replace("(", "\\(").replace(")", "\\)")
-                st.info(texto_parcelas)
+                st.markdown(f"""
+                    <div style="background-color: #f0f2f6; padding: 10px; border-radius: 5px;">
+                        📌 O cliente pagará {parcelas} parcelas de <strong>R$ {valor_parcela:,.2f}</strong> (total <strong>R$ {valor_bruto:,.2f}</strong>)
+                    </div>
+                """.replace(",", "X").replace(".", ",").replace("X", "."), unsafe_allow_html=True)
             else:
-                st.info(f"Pagamento à vista de R$ {valor_bruto:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+                st.markdown(f"<div style='background-color: #f0f2f6; padding: 10px; border-radius: 5px;'>📌 Pagamento à vista de <strong>R$ {valor_bruto:,.2f}</strong></div>".replace(",", "X").replace(".", ",").replace("X", "."), unsafe_allow_html=True)
     else:
         st.error("Erro no cálculo. Verifique os valores.")
