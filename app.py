@@ -49,9 +49,24 @@ def calcular_valor_bruto(valor_liquido, fator_recebimento):
 if st.button("🧮 Calcular valor a cobrar"):
     fator = taxas_recebimento[opcao_pagamento]
     valor_bruto = calcular_valor_bruto(valor_liquido, fator)
+
     if valor_bruto:
         st.success(f"Você deve cobrar: R$ {valor_bruto:.2f}")
         st.markdown(f"<p style='text-align: center; color: gray;'>Com a opção '{opcao_pagamento}' você receberá exatamente R$ {valor_liquido:.2f}</p>", unsafe_allow_html=True)
+
+        # Mostrar parcelas se for crédito parcelado
+        if "Crédito" in opcao_pagamento:
+            parcelas = 1
+            if "à vista" in opcao_pagamento:
+                parcelas = 1
+            else:
+                parcelas = int(opcao_pagamento.split()[1].replace("x", ""))
+
+            valor_parcela = valor_bruto / parcelas
+            if parcelas > 1:
+                st.info(f"O cliente pagará {parcelas} parcelas de R$ {valor_parcela:.2f} (total R$ {valor_bruto:.2f})")
+            else:
+                st.info(f"Pagamento à vista de R$ {valor_bruto:.2f}")
     else:
         st.error("Erro no cálculo. Verifique os valores.")
 
