@@ -66,8 +66,8 @@ if st.button("🧮 Calcular valor a cobrar"):
             if parcelas > 1:
                 texto_parcelas = f"O cliente pagará {parcelas} parcelas de R$ {valor_parcela:,.2f} (total R$ {valor_bruto:,.2f})"
                 texto_parcelas = texto_parcelas.replace(",", "X").replace(".", ",").replace("X", ".")
-                st.info(texto_parcelas.replace("(", "\\(").replace(")", "\\)"))
-                .replace(".", ",").replace("X", "."))
+                texto_parcelas = texto_parcelas.replace("(", "\\(").replace(")", "\\)")
+                st.info(texto_parcelas)
             else:
                 st.info(f"Pagamento à vista de R$ {valor_bruto:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
     else:
