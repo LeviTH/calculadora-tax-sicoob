@@ -51,8 +51,8 @@ if st.button("🧮 Calcular valor a cobrar"):
     valor_bruto = calcular_valor_bruto(valor_liquido, fator)
 
     if valor_bruto:
-        st.success(f"Você deve cobrar: R$ {valor_bruto:.2f}")
-        st.markdown(f"<p style='text-align: center; color: gray;'>Com a opção '{opcao_pagamento}' você receberá exatamente R$ {valor_liquido:.2f}</p>", unsafe_allow_html=True)
+        st.success(f"Você deve cobrar: R$ {valor_bruto:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+        st.markdown(f"<p style='text-align: center; color: gray;'>Com a opção '{opcao_pagamento}' você receberá exatamente R$ {valor_liquido:,.2f}</p>".replace(",", "X").replace(".", ",").replace("X", "."), unsafe_allow_html=True)
 
         # Mostrar parcelas se for crédito parcelado
         if "Crédito" in opcao_pagamento:
@@ -64,9 +64,8 @@ if st.button("🧮 Calcular valor a cobrar"):
 
             valor_parcela = valor_bruto / parcelas
             if parcelas > 1:
-                st.info(f"O cliente pagará {parcelas} parcelas de R$ {valor_parcela:.2f} (total R$ {valor_bruto:.2f})")
+                st.info(f"O cliente pagará {parcelas} parcelas de R$ {valor_parcela:,.2f} (total R$ {valor_bruto:,.2f})".replace(",", "X").replace(".", ",").replace("X", "."))
             else:
-                st.info(f"Pagamento à vista de R$ {valor_bruto:.2f}")
+                st.info(f"Pagamento à vista de R$ {valor_bruto:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
     else:
         st.error("Erro no cálculo. Verifique os valores.")
-
